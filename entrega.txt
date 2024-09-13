@@ -1,0 +1,188 @@
+package Robot;
+
+public class Mano {
+    private int numeroDedos;
+    private String tipoMano;
+
+    public Mano(int numeroDedos, String tipoMano) {
+        this.numeroDedos = numeroDedos;
+        this.tipoMano = tipoMano;
+    }
+
+    public void moverDedos() {
+        System.out.println("Moviendo los " + numeroDedos + " dedos de la mano " + tipoMano);
+    }
+
+    public int getNumeroDedos() {
+        return numeroDedos;
+    }
+
+    public String getTipoMano() {
+        return tipoMano;
+    }
+}
+
+
+
+package Robot;
+
+public class Pierna {
+    private String lado;
+    private int largo;
+
+    public Pierna(String lado, int largo) {
+        this.lado = lado;
+        this.largo = largo;
+    }
+
+    public void caminar() {
+        System.out.println("Moviendo la pierna " + lado + " de largo " + largo + " cm para caminar.");
+    }
+
+    public String getLado() {
+        return lado;
+    }
+
+    public int getLargo() {
+        return largo;
+    }
+}
+
+
+
+
+
+
+package Robot;
+
+public class Torso {
+    private String material;
+    private double peso;
+
+    public Torso(String material, double peso) {
+        this.material = material;
+        this.peso = peso;
+    }
+
+    public void rotar() {
+        System.out.println("El torso de " + material + " está rotando.");
+    }
+
+    public String getMaterial() {
+        return material;
+    }
+
+    public double getPeso() {
+        return peso;
+    }
+}
+
+
+
+
+package Robot;
+
+public class Cabeza {
+    private String tipoOjos;
+    private String colorPelo;
+
+    public Cabeza(String tipoOjos, String colorPelo) {
+        this.tipoOjos = tipoOjos;
+        this.colorPelo = colorPelo;
+    }
+
+    public void girar() {
+        System.out.println("Girando la cabeza con ojos " + tipoOjos + " y pelo " + colorPelo + ".");
+    }
+
+    public String getTipoOjos() {
+        return tipoOjos;
+    }
+
+    public String getColorPelo() {
+        return colorPelo;
+    }
+}
+
+
+
+
+package Robot;
+
+public abstract class Outfit {
+    protected String tipo;
+
+    public abstract void aplicar(Robot robot);
+}
+
+
+
+
+
+package Robot;
+
+public class ClaseOutfitPerzonalizado extends Outfit {
+    public ClaseOutfitPerzonalizado() {
+        this.tipo = "Perzonalizado";  
+    }
+
+   
+    public void aplicar(Robot robot) {
+        System.out.println("Aplicando el outfit personalizado al robot.");
+    }
+}
+
+
+
+
+
+
+package Robot;
+
+
+public class Robot {
+    private Mano manoIzquierda;
+    private Mano manoDerecha;
+    private Pierna piernaIzquierda;
+    private Pierna piernaDerecha;
+    private Torso torso;
+    private Cabeza cabeza;
+
+    public Robot() {
+        this.manoIzquierda = new Mano(5, "izquierda");
+        this.manoDerecha = new Mano(5, "derecha");
+        this.piernaIzquierda = new Pierna("izquierda", 100);
+        this.piernaDerecha = new Pierna("derecha", 100);
+        this.torso = new Torso("metal", 50.5);
+        this.cabeza = new Cabeza("LED", "negro");
+    }
+
+    public void mostrarComponentes() {
+        System.out.println("El robot tiene: ");
+        manoIzquierda.moverDedos();
+        manoDerecha.moverDedos();
+        piernaIzquierda.caminar();
+        piernaDerecha.caminar();
+        torso.rotar();
+        cabeza.girar();
+    }
+
+    public void aplicarOutfit(Outfit outfit) {
+        outfit.aplicar(this);
+    }
+}
+
+
+
+
+package Robot;
+
+public class Main {
+    public static void main(String[] args) {
+        Robot robot = new Robot();
+        robot.mostrarComponentes();
+
+        Outfit claseOutfitPerzonalizado = new ClaseOutfitPerzonalizado();  
+        robot.aplicarOutfit(claseOutfitPerzonalizado);
+    }
+}
